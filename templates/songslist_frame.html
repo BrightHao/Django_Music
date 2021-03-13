@@ -1,0 +1,69 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name=”viewport” content=”width=device-width, initial-scale=1">
+    <title>歌单</title>
+    <link rel="stylesheet" href="{% static 'css/special.homepage.min.css' %}">
+</head>
+<body>
+<div class="wrap album spe clear_fix" id="spe">
+    <div class="l">
+        <dl id="dl">
+            <dt><a {% if current_name == "recommend" %}class="current"{% endif %}
+                   title="推荐" href="{% url 'songslist:recommend' %}"
+                   onclick="sdnClick(12129)" hidefocus="true">推荐</a></dt>
+            <dt><a {% if current_name == "popular" %}class="current"{% endif %}
+                    title="流行" onclick="sdnClick(12130)" href="{% url 'songslist:popular' %}"
+                   hidefocus="true">流行</a></dt>
+            <dt><a {% if current_name == "folksongs" %}class="current"{% endif %}
+                    title="民谣" onclick="sdnClick(12132)" href="{% url 'songslist:folksongs' %}"
+                   hidefocus="true">民谣</a></dt>
+            <dt><a {% if current_name == "gufeng" %}class="current"{% endif %}
+                    title="古风" onclick="sdnClick(12132)" href="{% url 'songslist:gufeng' %}"
+                   hidefocus="true">古风</a></dt>
+        </dl>
+    </div>
+
+
+    <div class="r">
+        <ul id="ulAlbums">
+
+            {% for list in songslists %}
+
+                <li class="s_{{ list.list_id }}">
+                    <div class="pic">
+                        <a hidefocus="ture" title="{{ list.name }}" target="_parent"
+                           href="/songslist/listid={{ list.id }}" onclick="sdnClick(12133)"><img
+                                alt="{{ list.name }}"
+                                src="{{ list.pic }}"
+                                _src="{{ list.pic }}"
+                                width="100" height="100"></a>
+                    </div>
+                    <div class="detail">
+                        <div class="top"><strong><a title="{{ list.name }}" target="_parent"
+                                                    href="/songslist/listid={{ list.id }}">{{ list.name }}</a>
+                            <!--<span>()</span>-->
+                        </strong></div>
+                        <div class="text">
+                        </div>
+                        <div class="btn">
+                            <a href="/songslist/listid={{ list.id }}" target="_parent" class="pc_temp_btn_s02 pc_temp_bicon_play" title="播放全部"
+                               data-id="{{ list.list_id }}" hidefocus="true"><span><i class="t2"></i>播放全部</span></a>
+                            <a href="/songslist/listid={{ list.id }}" target="_parent" class="pc_temp_btn_s02 pc_temp_bicon_share" title="收藏"
+                               data-id="{{ list.list_id }}" data-collection="{{ list.name }}"
+                               data-img="{{ list.pic }}"
+                               hidefocus="true"><span><i class="t2"></i>收藏</span></a>
+                        </div>
+                    </div>
+                </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+</div>
+</body>
+</html>

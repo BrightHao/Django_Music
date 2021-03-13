@@ -1,0 +1,208 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name=”viewport” content=”width=device-width, initial-scale=1">
+    <title>歌手列表</title>
+    <link rel="stylesheet" href="{% static 'css/singerlist1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/singerlist2.css' %}">
+</head>
+<body>
+
+<div class="g-bd2 f-cb" style="height: 800px;margin: auto">
+    <div class="g-sd2">
+        <div class="g-wrap4 n-sgernav" id="singer-cat-nav">
+
+            <div class="blk">
+                <h2 class="tit">华语</h2>
+                <ul class="nav f-cb">
+                    <li><a href="/singers/id=1001&charnum=1"
+                           class="cat-flag {% if "/singers/id=1001" in current_url %}z-slt{% endif %}"
+                           data-cat="1001">华语男歌手</a>
+                    </li>
+                    <li><a href="/singers/id=1002&charnum=1" class="cat-flag {% if "/singers/id=1002" in current_url %}z-slt{% endif %}" data-cat="1002">华语女歌手</a>
+                    </li>
+                    <li><a href="/singers/id=1003&charnum=1" class="cat-flag {% if "/singers/id=1003" in current_url %}z-slt{% endif %}" data-cat="1003">华语组合/乐队</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blk">
+                <h2 class="tit">欧美</h2>
+                <ul class="nav f-cb">
+                    <li><a href="/singers/id=2001&charnum=1" class="cat-flag {% if "/singers/id=2001" in current_url %}z-slt{% endif %}" data-cat="2001">欧美男歌手</a>
+                    </li>
+                    <li><a href="/singers/id=2002&charnum=1" class="cat-flag {% if "/singers/id=2002" in current_url %}z-slt{% endif %}" data-cat="2002">欧美女歌手</a>
+                    </li>
+                    <li><a href="/singers/id=2003&charnum=1" class="cat-flag {% if "/singers/id=2003" in current_url %}z-slt{% endif %}" data-cat="2003">欧美组合/乐队</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blk">
+                <h2 class="tit">日本</h2>
+                <ul class="nav f-cb">
+                    <li><a href="/singers/id=6001&charnum=1" class="cat-flag {% if "/singers/id=6001" in current_url %}z-slt{% endif %}" data-cat="6001">日本男歌手</a>
+                    </li>
+                    <li><a href="/singers/id=6002&charnum=1" class="cat-flag {% if "/singers/id=6002" in current_url %}z-slt{% endif %}" data-cat="6002">日本女歌手</a>
+                    </li>
+                    <li><a href="/singers/id=6003&charnum=1" class="cat-flag {% if "/singers/id=6003" in current_url %}z-slt{% endif %}" data-cat="6003">日本组合/乐队</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blk">
+                <h2 class="tit">韩国</h2>
+                <ul class="nav f-cb">
+                    <li><a href="/singers/id=7001&charnum=1" class="cat-flag {% if "/singers/id=7001" in current_url %}z-slt{% endif %}" data-cat="7001">韩国男歌手</a>
+                    </li>
+                    <li><a href="/singers/id=7002&charnum=1" class="cat-flag {% if "/singers/id=7002" in current_url %}z-slt{% endif %}" data-cat="7002">韩国女歌手</a>
+                    </li>
+                    <li><a href="/singers/id=7003&charnum=1" class="cat-flag {% if "/singers/id=7003" in current_url %}z-slt{% endif %}" data-cat="7003">韩国组合/乐队</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="blk">
+
+            </div>
+        </div>
+    </div>
+
+    {#    歌手详情#}
+    <div class="g-mn2">
+        <div class="g-mn2c">
+            <div class="g-wrap">
+                {#                歌手类型 #}
+                <div class="u-title f-cb">
+                    <h3><span class="f-ff2 d-flag">{% if singerclass %}{{ singerclass }}{% else %}
+                        华语男歌手{% endif %}</span></h3>
+                </div>
+                {#                按照字母顺序排列#}
+                <ul class="n-ltlst f-cb" id="initial-selector">
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=1" id=0
+                           class="ch f-fs0 {% if charnum == 0 %}z-slt{% endif %}">热门</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=65" id=1 class="{% if charnum == 1 %}z-slt{% endif %}">A</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=66" id=2 class="{% if charnum == 2 %}z-slt{% endif %}">B</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=67" id=3 class="{% if charnum == 3 %}z-slt{% endif %}">C</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=68" id=4 class="{% if charnum == 4 %}z-slt{% endif %}">D</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=69" id=5 class="{% if charnum == 5 %}z-slt{% endif %}">E</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=70" id=6 class="{% if charnum == 6 %}z-slt{% endif %}">F</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=71" id=7 class="{% if charnum == 7 %}z-slt{% endif %}">G</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=72" id=8 class="{% if charnum == 8 %}z-slt{% endif %}">H</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=73" id=9 class="{% if charnum == 9 %}z-slt{% endif %}">I</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=74" id=10 class="{% if charnum == 10 %}z-slt{% endif %}">J</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=75" id=11 class="{% if charnum == 11 %}z-slt{% endif %}">K</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=76" id=12 class="{% if charnum == 12 %}z-slt{% endif %}">L</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=77" id=13 class="{% if charnum == 13 %}z-slt{% endif %}">M</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=78" id=14 class="{% if charnum == 14 %}z-slt{% endif %}">N</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=79" id=15 class="{% if charnum == 15 %}z-slt{% endif %}">O</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=80" id=16 class="{% if charnum == 16 %}z-slt{% endif %}">P</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=81" id=17 class="{% if charnum == 17 %}z-slt{% endif %}">Q</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=82" id=18 class="{% if charnum == 18 %}z-slt{% endif %}">R</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=83" id=19 class="{% if charnum == 19 %}z-slt{% endif %}">S</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=84" id=20 class="{% if charnum == 20 %}z-slt{% endif %}">T</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=85" id=21 class="{% if charnum == 21 %}z-slt{% endif %}">U</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=86" id=22 class="{% if charnum == 22 %}z-slt{% endif %}">V</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=87" id=23 class="{% if charnum == 23 %}z-slt{% endif %}">W</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=88" id=24 class="{% if charnum == 24 %}z-slt{% endif %}">X</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=89" id=25 class="{% if charnum == 25 %}z-slt{% endif %}">Y</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=90" id=26 class="{% if charnum == 26 %}z-slt{% endif %}">Z</a>
+                    </li>
+                    <li>
+                        <a href="/singers/id={{ classnum }}&charnum=0" id=27 class="ch f-fs0 {% if charnum == 27 %}z-slt{% endif %}">其他</a>
+                    </li>
+                </ul>
+                <div class="m-sgerlist">
+                    <ul class="m-cvrlst m-cvrlst-5 f-cb" id="m-artist-box">
+
+                        {% for singer in singers %}
+
+                            <li class="sml">
+                                <a href="/singers/singerid={{ singer.1 }}&singer={{ singer.0 }}" target="_parent"
+                                   class="nm nm-icn f-thide s-fc0" title="{{ singer.0 }}的音乐">{{ singer.0 }}</a>
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+{#    $(document).ready(function () {#}
+{#        var current_class = $(".d-flag").text();#}
+{#        $(".cat-flag").each(function () {#}
+{#            if ($(this).text() == current_class) {#}
+{#                $(this).addClass("z-slt");#}
+{#            }#}
+{#        });#}
+{#    });#}
+{##}
+{#    $(function () {#}
+{#        if (window.location.href != "/singers/") {#}
+{#            var charnum = {{ charnum }};#}
+{#            $("#" + charnum).addClass("z-slt");#}
+{#        }#}
+{#    })#}
+
+</script>
+
+</body>
+</html>

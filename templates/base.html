@@ -1,0 +1,258 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name=”viewport” content=”width=device-width, initial-scale=1">
+    <title>{% block html_title %}首页{% endblock %}</title>
+    {% block headpic %}
+        <link rel="icon" href="../static/images/1.png">{% endblock %}
+    {% block loadcss %}
+        <link rel="stylesheet" href="../static/css/reset.css">
+        <link rel="stylesheet" href="../static/css/index.css">
+    {% endblock %}
+
+</head>
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="header-top">
+            <a href="#" class="logo"></a>
+            <nav class="header-nav">
+                <ul>
+{#                    <li><a href="#" class="header-nav__cur">音乐馆</a></li>#}
+{#                    <li><a href="#">我的音乐</a></li>#}
+{#                    <li><a href="#">下载客户端</a></li>#}
+{#                    <li><a href="#">VIP</a></li>#}
+                </ul>
+            </nav>
+
+        <div class="header-search" style="float:right;">
+                <input type="text" class="text" placeholder="搜索你喜欢的音乐">
+                <div class="btn"><i class="icon-sprite"></i></div>
+        </div>
+
+{#            <div class="header-login">#}
+{#                <a href="#" class="login">登录</a>#}
+{#                <a href="#" class="open-green">开通绿钻豪华版</a>#}
+{#                <a href="#" class="open-vip">开通付费包</a>#}
+{#            </div>#}
+        </div>
+    <div >
+        {% block header-sub %}
+            <ul class="header-subNav">
+            <li><a href="{% url 'demo:index' %}" class="subNav-cur">首页</a></li>
+            <li><a href="/singers" >歌手</a></li>
+            <li><a href="/songsrank">排行榜</a></li>
+            <li><a href="/songslist">歌单</a></li>
+            </ul>
+        {% endblock %}
+{#                <div class="result">#}
+{#                    <a href="#" class="result-item">#}
+{#                        <span class="rank">1</span>#}
+{#                        <span class="title">默</span>#}
+{#                        <span class="num">3.4万</span>#}
+{#                    </a>#}
+{#              </div>#}
+            </div>
+    </div>
+</header>
+
+<div class="center" style="width: 100%">
+{% block center %}
+
+
+    <!-- 排行榜 -->
+    <div class="main" id="rank">
+        <div class="main-inner">
+            <div class="main-title">
+                <h2 class="title"><i></i></h2>
+                <span class="line line-left"></span>
+                <span class="line line-right"></span>
+            </div>
+            {#      <a href="#" class="readAll">全部<i class="icon-sprite"></i></a>#}
+            <ul class="rank-list">
+                <li class="rank-list__item rank-list__1">
+                    <span class="rank-bg"></span>
+                    <span class="mask"></span>
+                    <a href="{% url 'playlist:hot' %}" target="play">
+                        <i class="icon-play" id="1"></i>
+                    </a>
+                    <div class="title">
+
+                        {#            <i></i>#}
+                        <h3>流行指数</h3>
+                    </div>
+                    <i class="line"></i>
+                    <ul class="song-list">
+                        {% for i in popularsong %}
+                            <li class="song-list__item">
+                                <a href="{% url 'playlist:popular' %}?songid={{ forloop.counter }}" target="play"><span>{{ forloop.counter }}</span>{{ i.name|truncatechars:25 }}</a>
+                                <span>{{ i.singer|truncatechars:25 }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="rank-list__item rank-list__2">
+                    <span class="rank-bg"></span>
+                    <span class="mask"></span>
+                    <a href="{% url 'playlist:hot' %}" target="play">
+                        <i class="icon-play" id="2"></i>
+                    </a>
+                    <div class="title">
+
+                        <h3>热歌</h3>
+                    </div>
+                    <i class="line"></i>
+                    <ul class="song-list">
+
+                        {% for i in hotsong %}
+                            <li class="song-list__item">
+                                <a href="{% url 'playlist:hot' %}?songid={{ forloop.counter }}" target="play"><span>{{ forloop.counter }}</span>{{ i.name|truncatechars:25 }}</a>
+                                <span>{{ i.singer|truncatechars:25 }}</span>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </li>
+                <li class="rank-list__item rank-list__3">
+                    <span class="rank-bg"></span>
+                    <span class="mask"></span>
+                    <a href="{% url 'playlist:hot' %}" target="play">
+                        <i class="icon-play" id="3"></i>
+                    </a>
+                    <div class="title">
+
+                        {#            <i></i>#}
+                        <h3>新歌</h3>
+                    </div>
+                    <i class="line"></i>
+                    <ul class="song-list">
+
+                        {% for i in newsong %}
+                            <li class="song-list__item">
+                                <a href="{% url 'playlist:new' %}?songid={{ forloop.counter }}" target="play"><span>{{ forloop.counter }}</span>{{ i.name|truncatechars:25 }}</a>
+                                <span>{{ i.singer|truncatechars:25 }}</span>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </li>
+                <li class="rank-list__item rank-list__4">
+                    <span class="rank-bg"></span>
+                    <span class="mask"></span>
+                    <a href="{% url 'playlist:new' %}" target="play">
+                        <i class="icon-play" id="5"></i>
+                    </a>
+                    <div class="title">
+
+                        {#            <i></i>#}
+                        <h3>电音榜</h3>
+                    </div>
+                    <i class="line"></i>
+                    <ul class="song-list">
+
+                        {% for i in dianyinsong %}
+                            <li class="song-list__item">
+                                {#            跳转到歌曲列表界面#}
+                                <a href="{% url 'playlist:dianyin' %}?songid={{ forloop.counter }}" target="play"><span>{{ forloop.counter }}</span>{{ i.name|truncatechars:25 }}</a>
+                                <span>{{ i.singer|truncatechars:25 }}</span>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 热门歌单 -->
+    <div class="main" id="hotSong">
+        <div class="main-inner">
+            <div class="main-title">
+                <h2 class="title"><i></i></h2>
+                <span class="line line-left"></span>
+                <span class="line line-right"></span>
+            </div>
+            <div class="main-slider">
+                <ul class="slider-wrapper">
+                    {% for list in lists %}
+                        <li>
+                            <a href="/songslist/listid={{ list.id }}" class="img">
+                                <img src="{{ list.pic }}" width="300" height="300" alt="{{ list.name }}">
+                            </a>
+                            <div class="info">
+                                <div class="title">
+                                    <a href="/songslist/listid={{ list.id }}">{{ list.name }}</a>
+                                    <i class="icon-sprite"></i>
+                                </div>
+                                <a href="" class="author">播放量：{{ list.listen_times }}</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="slider-btns">
+                    <span class="cur"><i></i></span>
+                    <span><i></i></span>
+                    <span><i></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-operate">
+            <a href="javascript:;" class="slider-prev"><i class="icon-sprite"></i></a>
+            <a href="javascript:;" class="slider-next"><i class="icon-sprite"></i></a>
+        </div>
+    </div>
+{% endblock %}
+</div>
+
+<!-- footer -->
+<footer class="footer" style="width: 100%">
+
+
+        <div class="footer-copyright">
+           <p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp  </p>
+            <p>联系我们：  QQ:861759757   TEL:17773346009</p>
+{#            <p><a href="#">关于我们</a><span>|</span><a href="#">关于我们</a><span>|</span><a href="#">关于我们</a><span>|</span><a#}
+{#                    href="#">关于我们</a><span>|</span><a href="#">关于我们</a><span>|</span><a#}
+{#                    href="#">关于我们</a><span>|</span><a href="#">关于我们</a><span>|</span><a href="#">关于我们</a></p>#}
+            <p>Copyright © 2018 - All Rights Reserved.-<a href="http://www.tanghaolun.cn">www.tanghaolun.cn</a></p>
+            <a href="http://www.miitbeian.gov.cn"><i></i>湘ICP备18017529号</a>
+            <p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp  </p>
+             <p>本网站没有任何商业用途，仅用于个人测试与练习</br>
+               如有侵权，请及时联系作者</p>
+        </div>
+
+</footer>
+
+
+
+
+</body>
+
+    <script src="{% static "songlist/js/jquery-1.10.2.js" %}"></script>
+
+    {% block js %}
+        <script src="{% static "js/script.js" %}"></script>
+    {% endblock %}
+
+    <script>
+            // $(".icon-play").click(function () {
+            //   var id = $(this).attr("id");
+            //   window.location.href = "/playlist/" + id + "/";
+            // });
+            $(".icon-sprite").click(function () {
+                var text = $(".text").val();
+                $.get("/research/text=" + text, function (ret) {
+                    $(".center").html(ret);
+                });
+            });
+            $(".text").bind("keyup", function (event) {
+                if (event.keyCode == "13") {
+                    $(".icon-sprite").click();
+                }
+            });
+    </script>
+</html>

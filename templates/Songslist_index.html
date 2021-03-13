@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block html_title %}歌单{% endblock %}
+
+{% block headpic %}
+    <link rel="icon" href="../static/images/1.png">
+{% endblock %}
+
+{% block loadcss %}
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+{% endblock %}
+
+{% block header-sub %}
+    <ul class="header-subNav">
+        <li><a href="{% url 'demo:index' %}">首页</a></li>
+        <li><a href="/singers">歌手</a></li>
+        <li><a href="/songsrank">排行榜</a></li>
+        <li><a href="/songslist" class="subNav-cur">歌单</a></li>
+    </ul>
+{% endblock %}
+
+{% block center %}
+
+    <iframe style="width: 100%" id="iframe" frameborder="0" scrolling="no" src="/songslist/songslist_frame/"></iframe>
+
+{% endblock %}
+
+
+{% block js %}
+        <script type="text/javascript">
+    function reinitIframe(){
+    var iframe = document.getElementById("iframe");
+    try{
+    var bHeight = iframe.contentWindow.document.body.scrollHeight;
+    var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+    var height = Math.max(bHeight, dHeight);
+    iframe.height = height;
+    console.log(height);
+    }catch (ex){}
+    }
+    window.setInterval("reinitIframe()", 200);
+    </script>
+{% endblock %}

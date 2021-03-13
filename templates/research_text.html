@@ -1,0 +1,88 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <script type="text/javascript" src="{% static 'songlist/js/jquery-1.10.2.js' %}"></script>
+    <script>
+        	$(".list_menu__icon_play").click(function(){
+		/*开始放歌*/
+		var sid=$(this).attr("sonN");
+		songIndex=sid;
+		$("#audio").attr("src",'http://music.163.com/song/media/outer/url?id='+ songIndex +'.mp3');	// 获得歌曲资源
+		audio=document.getElementById("audio");//获得音频元素
+        audio.play();
+	});
+    </script>
+    <link rel="stylesheet" href="{% static 'css/singer_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/qb-ie-remind.css' %}">
+</head>
+<body>
+    <div class="main" style="height: 700px">
+
+        <div class="js_tab" id="index_tab">
+
+            <div class="mod_part">
+                <div class="part__hd">
+                    <h2 class="part__tit">搜索歌曲</h2>
+                </div>
+
+                <div class="mod_songlist">
+                    <ul class="songlist__header">
+                        <li class="songlist__edit songlist__edit--check sprite">
+                            <input type="checkbox" class="songlist__checkbox">
+                        </li>
+                        <li class="songlist__header_name">歌曲</li>
+                        <li class="songlist__header_album">歌手</li>
+                        <li class="songlist__header_time">时长</li>
+                    </ul>
+
+                    <audio id="audio" src=""></audio>
+
+                    <ul class="songlist__list">
+
+
+                        {% for song_info in songs %}
+                                                <li mid="{{ song_info.name }}" ix="{{ forloop.counter }}">
+                            <div class="songlist__item"
+                                 onmouseover="this.className=(this.className+' songlist__item--hover')"
+                                 onmouseout="this.className=this.className.replace(/ songlist__item--hover/, '')">
+                                <div class="songlist__edit songlist__edit--check sprite">
+                                    <input type="checkbox" class="songlist__checkbox">
+                                </div>
+
+                                <div class="songlist__number">{{ forloop.counter }}</div>
+
+                                <div class="songlist__songname">
+                                        {{ song_info.name }}
+                                    <div class="mod_list_menu">
+                                        <a href="javascript:;" class="list_menu__item list_menu__play js_play"
+                                           title="播放">
+                                            <i class="list_menu__icon_play" sonN="{{ song_info.songid }}"></i>
+                                            <span class="icon_txt">播放</span>
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="songlist__album">
+
+                                    {{ song_info.singer.name }}
+
+                                </div>
+                                <div class="songlist__time">**  **</div>
+                                <div class="songlist__other">
+
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

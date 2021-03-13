@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block html_title %}排行榜{% endblock %}
+{% block headpic %}
+    <link rel="icon" href="{% static 'images/1.png' %}">{% endblock %}
+{% block header-sub %}
+    <ul class="header-subNav">
+    <li><a href="{% url 'demo:index' %}" >首页</a></li>
+    <li><a href="/singers" >歌手</a></li>
+    <li><a href="{% url 'songsrank:index' %}"  class="subNav-cur">排行榜</a></li>
+    <li><a href="/songslist">歌单</a></li>
+    </ul>
+{% endblock %}
+
+{% block loadcss %}
+    <link rel="stylesheet" href="{% static 'css/rankPage.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block center %}
+        <audio id="audio" src=""></audio>
+    <div class="pc_temp_wrap pc_temp_2col_critical">
+        <div class="pc_temp_main">
+            <!-- 侧栏 -->
+            <div class="pc_temp_side">
+                <!-- 热门榜单 -->
+                <div class="pc_rank_sidebar pc_rank_sidebar_first ">
+                    <h3 data-index="0">
+                        <a href="javascript:;" hidefocus="true" title="热门榜单">
+                            热门榜单 <i class="pc_temp_arrow"></i>
+                        </a>
+                    </h3>
+                    <ul>
+                        <li>
+                            <a title="流行指数榜" class="{% if current_url == '/songsrank/' or current_url == '/songsrank/1/' %}current{% endif %}" hidefocus="true" href="/songsrank/1" onclick="sdnClick(12012)">
+                                <span></span>
+                                流行指数榜
+                            </a>
+                        </li>
+                        <li>
+                            <a title="新歌飙升榜" class="{% if current_url == '/songsrank/2/' %}current{% endif %}" hidefocus="true" href="/songsrank/2" onclick="sdnClick(12012)">
+                                <span></span>
+                                新歌飙升榜
+                            </a>
+                        </li>
+                        <li>
+                            <a title="热歌排行榜" class="{% if current_url == '/songsrank/3/' %}current{% endif %}" hidefocus="true" href="/songsrank/3" onclick="sdnClick(12013)">
+                                <span></span>
+                                热歌排行榜
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 特色音乐榜 -->
+                <div class="pc_rank_sidebar ">
+                    <h3 data-index="1">
+                        <a href="javascript:;" hidefocus="true" title="特色音乐榜">
+                            特色音乐榜<i class="pc_temp_arrow"></i>
+                        </a>
+                    </h3>
+                    <ul>
+                        <li>
+                            <a title="抖音排行榜" class="{% if current_url == '/songsrank/4/' %}current{% endif %}" hidefocus="true" href="/songsrank/4" onclick="sdnClick(45124)">
+                                <span></span>
+                                抖音排行榜
+                            </a>
+                        </li>
+                        <li>
+                            <a title="音乐电音榜" class="{% if current_url == '/songsrank/5/' %}current{% endif %}" hidefocus="true" href="/songsrank/5" onclick="sdnClick(45125)">
+                                <span></span>
+                                音乐电音榜
+                            </a>
+                        </li>
+                        <li>
+                            <a title="电竞音乐榜" class="{% if current_url == '/songsrank/6/' %}current{% endif %}" hidefocus="true" href="/songsrank/6" onclick="sdnClick(45126)">
+                                <span></span>
+                                电竞音乐榜
+                            </a>
+                        </li>
+                        <li>
+                            <a title="KTV唛榜" class="{% if current_url == '/songsrank/7/' %}current{% endif %}" hidefocus="true" href="/songsrank/7" onclick="sdnClick(45127)">
+                                <span></span>
+                                KTV唛榜
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 全球榜 -->
+                <div class="pc_rank_sidebar">
+                    <h3 data-index="2">
+                        <a href="javascript:;" hidefocus="true" title="全球榜">
+                            全球榜<i class="pc_temp_arrow"></i>
+                        </a>
+                    </h3>
+                    <ul class="clear_fix">
+                        <li>
+                            <a title="美国BillBoard榜" class="{% if current_url == '/songsrank/8/' %}current{% endif %}" hidefocus="true" href="/songsrank/8" onclick="sdnClick(12022)">
+                                <span></span>
+                                美国BillBoard榜
+                            </a>
+                        </li>
+                        <li>
+                            <a title="UK排行榜周榜" class="{% if current_url == '/songsrank/9/' %}current{% endif %}" hidefocus="true" href="/songsrank/9" onclick="sdnClick(12023)">
+                                <span></span>
+                                UK排行榜周榜 </a>
+                        </li>
+                        <li>
+                            <a title="英国Q杂志中文版周榜" class="{% if current_url == '/songsrank/10/' %}current{% endif %}" hidefocus="true" href="/songsrank/10" onclick="sdnClick(12024)">
+                                <span></span>
+                                英国Q杂志中文版周榜 </a>
+                        </li>
+                        <li>
+                            <a title="日本Oricon周榜" class="{% if current_url == '/songsrank/11/' %}current{% endif %}" hidefocus="true" href="/songsrank/11" onclick="sdnClick(12025)">
+                                <span></span>
+                                日本Oricon周榜 </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="pc_temp_content">
+                <div class="pc_temp_container">
+                    <div class="pc_rank_title clear_fix">
+                        <div id="pc_temp_title" class="pc_temp_title">
+{#                        榜单标题#}
+                            <h3>{% if current_url == "/songsrank/" or current_url == "/songsrank/1/" %}流行指数榜
+                                {% elif current_url == "/songsrank/2/" %}新歌飙升榜
+                                {% elif current_url == "/songsrank/3/" %}热歌排行榜
+                                {% elif current_url == "/songsrank/4/" %}抖音排行榜
+                                {% elif current_url == "/songsrank/5/" %}音乐电音榜
+                                {% elif current_url == "/songsrank/6/" %}电竞音乐榜
+                                {% elif current_url == "/songsrank/7/" %}KTV唛榜
+                                {% elif current_url == "/songsrank/8/" %}美国BillBoard榜
+                                {% elif current_url == "/songsrank/9/" %}UK排行榜周榜
+                                {% elif current_url == "/songsrank/10/" %}英国Q杂志中文版周榜
+                                {% elif current_url == "/songsrank/11/" %}日本Oricon周榜
+                            {% endif %}
+
+
+                            </h3>
+                            <span class="rank_update">{% now 'Y-m-d'%} 更新</span>
+
+                            <a href="{% if current_url == "/songsrank/" or current_url == "/songsrank/1/" %}/playlist/1/
+                                {% elif current_url == "/songsrank/2/" %}/playlist/3/
+                                {% elif current_url == "/songsrank/3/" %}/playlist/2/
+                                {% elif current_url == "/songsrank/4/" %}/playlist/4/
+                                {% elif current_url == "/songsrank/5/" %}/playlist/5/
+                                {% elif current_url == "/songsrank/6/" %}/playlist/6/
+                                {% elif current_url == "/songsrank/7/" %}/playlist/7/
+                                {% elif current_url == "/songsrank/8/" %}/playlist/8/
+                                {% elif current_url == "/songsrank/9/" %}/playlist/9/
+                                {% elif current_url == "/songsrank/10/" %}/playlist/10/
+                                {% elif current_url == "/songsrank/11/" %}/playlist/11/
+                                {% endif %}" class="pc_temp_btn_s02 pc_temp_bicon_play" title="播放全部"
+                               data-active="play" data-index="" hidefocus="true"><span><i class="t2"></i>播放全部</span></a>
+                        </div>
+                    </div>
+                    <div id="rankWrap">
+                        <div class="pc_temp_songhead clear_fix">
+                            <span class="pc_temp_btn_check pc_temp_btn_checked checkedAll"></span>全选
+                        </div>
+                        <div class="pc_temp_songlist  pc_rank_songlist_short">
+                            <ul>
+                                {% for song in songs %}
+                                <li class=" " title="{{ song.name }}" data-index="0">
+                                    <span class="pc_temp_btn_check pc_temp_btn_checked" data-index="0"></span>
+                                    <span class="pc_temp_coverlayer"></span>
+                                    <span class="pc_temp_num">
+                                        {% if forloop.counter <= 3 %}
+                                        <strong>{{ forloop.counter }}</strong>
+                                        {% else %}
+                                        {{ forloop.counter }}
+                                        {% endif %}
+                                    </span>
+                                    <span class="pc_temp_tips_l"></span>
+                                    <a href="{% if current_url == '/songsrank/1/' or current_url == '/songsrank/' %}{% url 'playlist:popular' %}?songid={{ forloop.counter }}
+                                         {% elif current_url == '/songsrank/2/' %}{% url 'playlist:new' %}?songid={{ forloop.counter }}
+                                         {% elif current_url == '/songsrank/3/' %}{% url 'playlist:hot' %}?songid={{ forloop.counter }}
+                                         {% elif current_url == '/songsrank/4/' %}{% url 'playlist:douyin' %}?songid={{ forloop.counter }}
+                                         {% elif current_url == '/songsrank/5/' %}{% url 'playlist:dianyin' %}?songid={{ forloop.counter }}
+                                         {% elif current_url == '/songsrank/6/' %}{% url 'playlist:dianjing' %}?songid={{ forloop.counter }}
+                                         {% elif current_url == '/songsrank/7/' %}{% url 'playlist:ktv' %}?songid={{ forloop.counter }}
+                                         {% elif current_url == '/songsrank/8/' %}{% url 'playlist:BillBoard' %}?songid={{ forloop.counter }}
+                                         {% elif current_url == '/songsrank/9/' %}{% url 'playlist:UK' %}?songid={{ forloop.counter }}
+                                         {% elif current_url == '/songsrank/10/' %}{% url 'playlist:Q' %}?songid={{ forloop.counter }}
+                                         {% elif current_url == '/songsrank/11/' %}{% url 'playlist:Oricon' %}?songid={{ forloop.counter }}
+                                        {% endif %}
+                                        "
+                                       data-active="playDwn"
+                                       target="play"
+                                       data-index="0" class="pc_temp_songname" title="{{ song.name }}" hidefocus="true">{{ song.name|truncatechars:20 }}
+                                    </a>
+                                    <span class="pc_temp_tips_r">
+																		<a href="javascript:;" data-active="play" sonN="{{ song.id }}"
+                                                                           data-index="0" class="pc_temp_btn_listen"
+                                                                           title="播放" hidefocus="true">播放</a>
+{#									<a href="javascript:;"#}
+{#                                       onclick="_hmt.push(['_trackEvent', 'hidedown', 'hidecilick', 'hidepc']);"#}
+{#                                       data-active="download" data-index="0" class="pc_temp_btn_download" title="下载"#}
+{#                                       hidefocus="true">下载</a>#}
+{#									<a href="javascript:;" data-active="share" data-index="0" class="pc_temp_btn_share"#}
+{#                                       title="分享" hidefocus="true">分享</a>#}
+									<span class="pc_temp_time">
+																											{{ song.duration }}
+									</span>
+								</span>
+                                </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="download" id="download"></div>
+                    <div class="fans_login"></div>
+                    <div class="pc_temp_nvg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        	$(".pc_temp_btn_listen").click(function(){
+		/*开始放歌*/
+		var sid=$(this).attr("sonN");
+		songIndex=sid;
+		$("#audio").attr("src",'http://music.163.com/song/media/outer/url?id='+ songIndex +'.mp3');	// 获得歌曲资源
+		audio=document.getElementById("audio");//获得音频元素
+        audio.play();
+	});
+    </script>
+{% endblock %}
